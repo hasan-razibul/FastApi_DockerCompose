@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data/ 
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  app:
+    build: .
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - 8000:8000
+    volumes:
+      - pdfs:/app/pdfs  
+    depends_on:
+      - db
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+volumes:
+  db-data:  
+  pdfs:  
