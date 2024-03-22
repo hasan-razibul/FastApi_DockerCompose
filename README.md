@@ -4,7 +4,7 @@
 
 This is a FastAPI project that utilizes Docker Compose for seamless deployment. The project follows a structured approach centered around the concept of "projects". Each project is characterized by a name, description, status, and an associated PDF file. The project leverages PostgreSQL as its database and Docker Compose to efficiently manage services, including volumes for storing the PDF files.
 
-## Reqiuirement
+## Requirements
 [Docker](https://www.docker.com/products/docker-desktop/) needs to be installed
 
 ## Project Structure
